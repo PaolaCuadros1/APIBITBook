@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
+const config = require('./config')
 
 const conectarDB = () => {
-    mongoose.connect('mongodb://localhost:27017/BITBook', { useNewUrlParser: true, useUnifiedTopology: true }, (error) => {
+    mongoose.set('useCreateIndex', true)
+    mongoose.connect(config.mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }, (error) => {
         if (error) {
             console.log('Error ', error)
         } else {

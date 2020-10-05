@@ -8,4 +8,5 @@ DELETE => Eliminar información.
 module.exports = (app) => {
     const genre = require('../controllers/genre')
     app.post('/genre/create', genre.create)
+    app.delete('/genre/deleteOne/:id', genre.deleteOne)
 }

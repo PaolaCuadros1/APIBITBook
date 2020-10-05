@@ -30,3 +30,55 @@ exports.create = (req, res) => {
 
 
 }
+
+exports.update = (req, res) => {
+    const genre = {
+        name: req.body.name
+    }
+
+    Genre.findByIdAndUpdate(req.params.id, genre, { new: true })
+        .then(
+            genre => {
+                res.send(genre)
+            }
+        )
+        .catch(
+            error => {
+                res.status(500).send({
+                    message: error.message || 'Error'
+                })
+            }
+        )
+}
+
+exports.getAll = (req, res) => {
+    Genre.find()
+        .then(
+            genres => {
+                res.send(genres)
+            }
+        )
+        .catch(
+            error => {
+                res.status(500).send({
+                    message: error.message || 'Error'
+                })
+            }
+        )
+}
+
+exports.deleteOne = (req, res) => {
+    Genre.findByIdAndRemove(req.params.id)
+        .then(
+            genre => {
+                res.send(genre)
+            }
+        )
+        .catch(
+            error => {
+                res.status(500).send({
+                    message: error.message
+                })
+            }
+        )
+}
