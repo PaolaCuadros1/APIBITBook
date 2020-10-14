@@ -9,4 +9,5 @@ module.exports = (app) => {
     const genre = require('../controllers/genre')
     app.post('/genre/create', genre.create)
     app.delete('/genre/deleteOne/:id', genre.deleteOne)
+    app.get('/genre/getAll', genre.getAll)
 }
