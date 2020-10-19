@@ -12,6 +12,8 @@ exports.createToken = (dataUser) => {
         exp: moment().add('1', 'hour').unix(), //Fecha de expiración del token
         firstName: dataUser.firstName,
         lastName: dataUser.lastName,
+        email: dataUser.email,
+        birthDate: dataUser.birthDate,
         role: dataUser.role,
     }
     /**
