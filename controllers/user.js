@@ -89,7 +89,8 @@ exports.update = (req, res) =>{
     User.findByIdAndUpdate(req.params.id, user, {new: true})
     .then (
         dataUser => {
-            res.send(dataUser)
+            //res.send(dataUser)
+            res.send({ toke: jwtServi.createToken(dataUser) })
         }
     ).catch(
         error => {
