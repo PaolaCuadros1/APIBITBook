@@ -83,7 +83,7 @@ exports.update = (req, res) =>{
         lastName: req.body.lastName,
         email: req.body.email,
         birthDate: req.body.birthDate,
-        password: bcript.hashSync(req.body.password),
+        //password: bcript.hashSync(req.body.password),
     }
 
     User.findByIdAndUpdate(req.params.id, user, {new: true})
