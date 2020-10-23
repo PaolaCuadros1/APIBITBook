@@ -6,7 +6,8 @@ const bookSchema = new mongoose.Schema({
     numberPages: { type: Number },
     //genre: { type: String, required: true },
     genre: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre' }],
-    publsher: { type: String, required: true }
+    publsher: { type: String, required: true },
+    image: { type: String, required: true },
 })
 
 module.exports = mongoose.model('Book', bookSchema)

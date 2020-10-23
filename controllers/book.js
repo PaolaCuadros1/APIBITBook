@@ -1,4 +1,6 @@
 const Book = require('../models/book')
+let fs = require('fs');
+const path = require('path');
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -7,12 +9,17 @@ exports.create = (req, res) => {
         })
     }
 
+    let routeFile = req.files.image.path
+    let splitFile = routeFile.split('\\');
+    imageFile = splitFile[splitFile.length - 1];
+
     const book = new Book({
         name: req.body.name,
         author: req.body.author,
         numberPages: req.body.numberPages,
-        genre: req.body.genre,
+        genre: req.body.genre.split(','),
         publsher: req.body.publsher,
+        image: imageFile,
     })
 
     book.save().then(
@@ -48,13 +55,21 @@ exports.update = (req, res) => {
             message: 'Todos los campos son obligatoríos.'
         })
     }
+    let imageFile = req.body.image
+    if(req.files.image){
+        console.log('dsdsd')
+        let routeFile = req.files.image.path
+        let splitFile = routeFile.split('\\');
+        imageFile = splitFile[splitFile.length - 1];
+    }
 
     const book = {
         name: req.body.name,
         author: req.body.author,
         numberPages: req.body.numberPages,
-        genre: req.body.genre,
+        genre: req.body.genre.split(','),
         publsher: req.body.publsher,
+        image: imageFile,
     }
 
     Book.findByIdAndUpdate(req.params.id, book, { new: true })
@@ -101,4 +116,21 @@ exports.getOne = (req, res) => {
                 })
             }
         )
+}
+
+exports.getImage = (req, res) => {
+    const image = req.query.image ? req.query.image : 'Book.jpg'
+    console.log('image ---> ', image)
+    const imageRoute = './assets/images/' + image;
+    fs.exists(imageRoute, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve(imageRoute))
+        } else {
+            res.status(404).send({
+                statusCode: 404,
+                message: 'La imagen no existe'
+            });
+        }
+    });
+
 }
