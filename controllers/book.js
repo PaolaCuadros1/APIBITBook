@@ -10,8 +10,10 @@ exports.create = (req, res) => {
     }
 
     let routeFile = req.files.image.path
-    let splitFile = routeFile.split('\\');
-    imageFile = splitFile[splitFile.length - 1];
+    let splitFile = routeFile.split('images');
+    imageFile = splitFile[splitFile.length - 1].replace('/', '').replace('\\', '');
+    console.log('imageFile ---> ', splitFile)
+    console.log('routeFile ---> ', imageFile)
 
     const book = new Book({
         name: req.body.name,
