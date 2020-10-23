@@ -12,8 +12,6 @@ exports.create = (req, res) => {
     let routeFile = req.files.image.path
     let splitFile = routeFile.split('images');
     imageFile = splitFile[splitFile.length - 1].replace('/', '').replace('\\', '');
-    console.log('imageFile ---> ', splitFile)
-    console.log('routeFile ---> ', imageFile)
 
     const book = new Book({
         name: req.body.name,
@@ -59,10 +57,9 @@ exports.update = (req, res) => {
     }
     let imageFile = req.body.image
     if(req.files.image){
-        console.log('dsdsd')
         let routeFile = req.files.image.path
-        let splitFile = routeFile.split('\\');
-        imageFile = splitFile[splitFile.length - 1];
+        let splitFile = routeFile.split('images');
+        imageFile = splitFile[splitFile.length - 1].replace('/', '').replace('\\', '');
     }
 
     const book = {
